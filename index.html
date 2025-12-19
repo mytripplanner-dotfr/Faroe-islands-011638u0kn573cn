@@ -1,0 +1,620 @@
+
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archipel Sauvage : Aventure Féroïenne </title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      template: {
+                          sable: '#FFEDD5', 
+                          ocre: '#F97316',   // Orange Vibrant (Brand Accent)
+                          roche: '#0F172A',  // Bleu Nuit (Brand Dark)
+                          ciel: '#0D9488',   // Vert Lagon (Brand Primary)
+                          bg: '#FFF7ED'      // C'est un blanc cassé chaud, parfait pour la lecture et le contraste.
+                      }
+                  },
+                  fontFamily: {
+                      sans: ['"Plus Jakarta Sans"', 'sans-serif'], // Nouvelle police corps
+                      serif: ['"Outfit"', 'sans-serif'],           // Nouvelle police titres
+                  }
+              }
+          }
+      }
+    </script>
+    <style>
+        body { overflow-x: hidden; }
+        
+        /* 2. FORÇAGE DES GRAISSES (Comme sur la Landing Page) */
+        .font-sans { font-weight: 600 !important; }
+        .font-serif { font-weight: 800 !important; }
+
+        /* Ligne verticale de la timeline */
+        .timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #E5E7EB;
+            z-index: 0;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line { left: 50%; margin-left: -1px; }
+        }
+
+        /* Style des cartes Info */
+        .tip-card {
+            border-left: 4px solid #F97316; /* ocre */
+            background-color: #FFF7ED;
+        }
+
+        /* Masquer la scrollbar de la nav mobile tout en gardant le scroll */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-template-bg text-template-roche antialiased">
+    
+    <nav id="nav-desktop" class="hidden md:flex fixed top-0 w-full z-50 bg-white/90 backdrop-blur border-b border-gray-200 py-4 px-8 justify-between items-center shadow-sm transition-transform duration-300 -translate-y-full">
+        <a href="#top" class="text-xl font-serif font-bold tracking-widest text-template-roche">MyTrip<span class="text-template-ocre">Planner</span></a>
+        <div class="space-x-6 text-sm font-bold text-gray-600">
+            <a href="#jour-1" class="nav-item-desktop hover:text-template-ocre transition">Le Parcours</a>
+            <a href="#pratique" class="nav-item-desktop hover:text-template-ocre transition">Infos Pratiques</a>
+        </div>
+    </nav>
+
+    <nav id="nav-mobile" class="md:hidden fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-200 py-3 pl-4 overflow-x-auto hide-scroll whitespace-nowrap shadow-md transition-transform duration-300 -translate-y-full">
+        <div class="flex space-x-2 pr-4" id="mobile-menu-container">
+            <a href="#top" class="inline-block px-3 py-1 bg-template-roche text-white rounded-full text-xs font-bold shadow-sm">Top</a>
+            
+                <a href="#jour-1" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J1 Arrivée à Vágar et premières découvertes</a>
+            
+                <a href="#jour-2" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J2 Randonnée emblématique et villages côtiers</a>
+            
+                <a href="#jour-3" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J3 Capitale et histoire féroïenne</a>
+            
+                <a href="#jour-4" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J4 Villages isolés et paysages dramatiques</a>
+            
+                <a href="#jour-5" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J5 Charme d'Eysturoy et falaises imposantes</a>
+            
+                <a href="#jour-6" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J6 Sommets et cascades majestueuses</a>
+            
+                <a href="#jour-7" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J7 L'île aux oiseaux : Mykines</a>
+            
+                <a href="#jour-8" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J8 Falaises de Vestmanna et légendes marines</a>
+            
+                <a href="#jour-9" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J9 L'île de James Bond : Kalsoy</a>
+            
+                <a href="#jour-10" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J10 Klaksvík et les îles du Nord</a>
+            
+                <a href="#jour-11" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J11 Détente et culture à Tórshavn</a>
+            
+                <a href="#jour-12" class="mobile-link inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold hover:bg-template-sable transition-all duration-300">J12 Départ des Îles Féroé</a>
+            
+            <a href="#pratique" class="mobile-link inline-block px-3 py-1 border border-gray-300 text-gray-500 rounded-full text-xs font-bold">Infos</a>
+        </div>
+    </nav>
+
+    <header id="top" class="relative h-[60vh] flex items-center justify-center bg-cover bg-center"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/header.png" || 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021'}');">
+        
+        <div class="relative z-20 text-center text-white px-4 max-w-3xl animate-fade-in-up">
+            <p class="font-sans text-template-sable tracking-[0.2em] mb-4 uppercase text-xs font-bold">Feuille de Route</p>
+            <h1 class="font-serif text-5xl md:text-8xl mb-6 leading-tight drop-shadow-lg">FAROE ISLANDS</h1>
+            <p class="font-sans text-lg md:text-xl text-gray-100 mb-10 font-medium max-w-2xl mx-auto leading-relaxed">Archipel Sauvage : Aventure Féroïenne</p>
+            
+            <div class="flex flex-wrap justify-center gap-4 text-sm font-bold mb-10">
+                <span class="bg-white/20 backdrop-blur-md px-5 py-2 rounded-full border border-white/30 shadow-sm">🗓️ 12 jours</span>
+                <span class="bg-white/20 backdrop-blur-md px-5 py-2 rounded-full border border-white/30 shadow-sm">💰 6350€</span>
+                <span class="bg-white/20 backdrop-blur-md px-5 py-2 rounded-full border border-white/30 shadow-sm">🛬 18h avec escales depuis Mena, Etats-Unis</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="itineraire" class="max-w-6xl mx-auto px-4 py-16 relative">
+        <div class="text-center mb-16">
+            <h2 class="text-template-ocre font-bold tracking-normal text-4xl mt-2 uppercase font-serif">Votre Roadtrip</h2>
+        </div>
+
+        <div class="relative">
+            <div class="timeline-line"></div>
+            
+                <div id="jour-1" class="section-etape relative z-10 mb-20 md:flex md:flex-row-reverse md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-roche rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-left md:pl-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 1</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Arrivée à Vágar et premières découvertes</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Après un long voyage, posez le pied sur cette terre mystérieuse. La journée sera douce pour vous acclimater, entre villages pittoresques et la première rencontre avec une cascade emblématique. L'air frais de l'Atlantique vous enveloppe, promettant une aventure inoubliable.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🛬 <strong>Arrivée à l'aéroport de Vágar (FAE)</strong>: Récupération de votre voiture de location et route vers votre hébergement. Le premier contact avec les paysages féroïens est déjà saisissant, avec des vues imprenables sur les falaises et l'océan.</li><li>🏞️ <strong>Découverte de Gásadalur et la cascade de Múlafossur</strong>: Le village isolé de Gásadalur offre une vue spectaculaire sur la cascade de Múlafossur se jetant directement dans l'océan. C'est une image emblématique des Féroé et un arrêt incontournable.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pr-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour1.jpg" class="w-full h-64 object-cover" alt="Jour 1">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🚗 Conduite aux Féroé</p>
+                                <p class="text-gray-700">Les routes sont bien entretenues mais souvent étroites et sinueuses. Soyez vigilant face aux moutons qui peuvent traverser à tout moment.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🌦️ Météo imprévisible</p>
+                                <p class="text-gray-700">Le temps change rapidement aux Féroé. Prévoyez des couches de vêtements et un imperméable, même en été.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-2" class="section-etape relative z-10 mb-20 md:flex  md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ocre rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-right md:pr-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 2</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Randonnée emblématique et villages côtiers</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Une journée dédiée à l'exploration des merveilles naturelles de Vágar, avec une randonnée offrant des panoramas à couper le souffle. Laissez-vous émerveiller par la puissance et la beauté des paysages, où la nature règne en maître.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🥾 <strong>Randonnée au lac Sørvágsvatn (ou Leitisvatn)</strong>: Marchez jusqu'au point de vue où le lac semble flotter au-dessus de l'océan, une illusion d'optique naturelle incroyable. C'est une expérience mémorable et l'une des vues les plus célèbres de l'archipel.</li><li>🏘️ <strong>Visite du village de Bøur</strong>: Ce petit village traditionnel offre des vues imprenables sur l'île de Tindhólmur et les stacks de Drangarnir. Ses maisons aux toits d'herbe sont typiques de l'architecture féroïenne et très photogéniques.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pl-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour2.jpg" class="w-full h-64 object-cover" alt="Jour 2">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">👟 Chaussures de randonnée</p>
+                                <p class="text-gray-700">Indispensables pour les sentiers parfois boueux et glissants. Des chaussures imperméables sont fortement recommandées.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">💧 Hydratation</p>
+                                <p class="text-gray-700">Emportez toujours de l'eau, même pour les randonnées courtes. L'air frais peut être trompeur.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-3" class="section-etape relative z-10 mb-20 md:flex md:flex-row-reverse md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ciel rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-left md:pl-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 3</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Capitale et histoire féroïenne</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Plongez au cœur de la culture féroïenne en explorant Tórshavn, la plus petite capitale du monde, puis remontez le temps à Kirkjubøur, le centre historique et spirituel de l'archipel. Une journée riche en découvertes culturelles et architecturales.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🚶‍♀️ <strong>Exploration de Tórshavn</strong>: Flânez dans les rues colorées de Tinganes, le quartier historique avec ses maisons en bois aux toits d'herbe. Visitez le port animé et imprégnez-vous de l'atmosphère unique de la capitale.</li><li>⛪ <strong>Visite de Kirkjubøur</strong>: Ce site historique majeur abrite les ruines de la cathédrale de Magnus, l'église de Saint-Olav et la plus ancienne ferme en bois habitée du monde, la Kirkjubøargarður. C'est un voyage fascinant dans le passé féroïen.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pr-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour3.jpg" class="w-full h-64 object-cover" alt="Jour 3">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🍽️ Spécialités culinaires</p>
+                                <p class="text-gray-700">Goûtez au "ræst kjøt" (agneau fermenté) ou au poisson frais dans l'un des restaurants de Tórshavn pour une expérience gustative authentique.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">ℹ️ Tinganes</p>
+                                <p class="text-gray-700">Ce quartier est le siège du gouvernement féroïen depuis plus de mille ans, ce qui en fait l'un des plus anciens parlements du monde.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-4" class="section-etape relative z-10 mb-20 md:flex  md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-roche rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-right md:pr-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 4</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Villages isolés et paysages dramatiques</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Aventurez-vous dans le nord de Streymoy pour découvrir des villages nichés dans des vallées profondes, entourés de montagnes majestueuses. Une immersion totale dans la nature sauvage des Féroé, loin de l'agitation.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🏞️ <strong>Découverte de Saksun</strong>: Un village idyllique situé au fond d'une lagune, entouré de falaises abruptes. La petite église et les maisons aux toits d'herbe offrent un cadre photogénique unique et une atmosphère paisible.</li><li>🌊 <strong>Visite de Tjørnuvík</strong>: Le village le plus septentrional de Streymoy, célèbre pour sa plage de sable noir et ses vues sur les impressionnants stacks marins "Risin et Kellingin". C'est un endroit parfait pour ressentir la puissance de l'océan.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pl-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour4.jpg" class="w-full h-64 object-cover" alt="Jour 4">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">📸 Photographie</p>
+                                <p class="text-gray-700">Les lumières changeantes des Féroé offrent des opportunités photographiques uniques. N'oubliez pas votre appareil et des batteries de rechange.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">📖 Légende de Risin et Kellingin</p>
+                                <p class="text-gray-700">Ces deux géants auraient tenté de tirer les Féroé vers l'Islande, mais furent pétrifiés par le soleil levant avant d'y parvenir.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-5" class="section-etape relative z-10 mb-20 md:flex md:flex-row-reverse md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ocre rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-left md:pl-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 5</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Charme d'Eysturoy et falaises imposantes</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Traversez le pont qui enjambe l'Atlantique pour explorer Eysturoy, une île aux paysages variés, des villages pittoresques aux falaises imposantes. Une journée pour apprécier la diversité des panoramas féroïens.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🏘️ <strong>Exploration de Gjógv</strong>: Ce village est célèbre pour son port naturel unique, un gouffre rocheux où les bateaux sont hissés. Profitez d'une balade le long des falaises pour des vues spectaculaires sur l'océan.</li><li>⛰️ <strong>Vue sur Eiði et les stacks Risin et Kellingin</strong>: Depuis Eiði, admirez les deux stacks marins légendaires, Risin et Kellingin, qui se dressent fièrement au large de la côte. Le village lui-même est charmant avec son ancien terrain de football.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pr-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour5.jpg" class="w-full h-64 object-cover" alt="Jour 5">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🌉 Le pont sur l'Atlantique</p>
+                                <p class="text-gray-700">Le pont reliant Streymoy et Eysturoy est le seul pont des Féroé à enjamber l'océan Atlantique, offrant une expérience de conduite unique.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🐑 Moutons omniprésents</p>
+                                <p class="text-gray-700">Les moutons sont plus nombreux que les habitants aux Féroé. Ils sont une partie intégrante du paysage et de la culture.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-6" class="section-etape relative z-10 mb-20 md:flex  md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ciel rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-right md:pr-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 6</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Sommets et cascades majestueuses</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Une journée pour les amoureux de la nature, entre l'ascension du plus haut sommet des Féroé et la contemplation de l'une des plus belles cascades de l'archipel. Préparez-vous à des vues imprenables et à la force de la nature.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🏔️ <strong>Ascension du Slættaratindur (si météo favorable)</strong>: Le point culminant des Féroé (880m) offre, par temps clair, une vue panoramique incroyable sur l'ensemble de l'archipel. La randonnée est accessible et très gratifiante.</li><li>💧 <strong>Visite de la cascade de Fossá</strong>: La plus haute cascade des Féroé, avec ses deux niveaux impressionnants. Un arrêt photo incontournable sur la route, où l'eau dévale les falaises avec puissance.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pl-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour6.jpg" class="w-full h-64 object-cover" alt="Jour 6">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">⚠️ Sécurité en montagne</p>
+                                <p class="text-gray-700">Vérifiez toujours la météo avant de partir en randonnée et informez quelqu'un de votre itinéraire. Les conditions peuvent changer rapidement.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🌿 Flore locale</p>
+                                <p class="text-gray-700">Admirez la flore unique des Féroé, adaptée à un climat rude. Ne cueillez pas de plantes et respectez l'environnement.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-7" class="section-etape relative z-10 mb-20 md:flex md:flex-row-reverse md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-roche rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-left md:pl-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 7</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">L'île aux oiseaux : Mykines</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Une excursion inoubliable vers l'île de Mykines, sanctuaire des macareux moines et autres oiseaux marins. Une expérience immersive au cœur de la faune féroïenne, où la nature est reine. (Excursion saisonnière, de mai à août).</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🐦 <strong>Excursion en bateau vers Mykines</strong>: Traversez les eaux tumultueuses pour atteindre cette île magique. La traversée est une aventure en soi, offrant des vues spectaculaires sur les falaises et la mer.</li><li>🚶‍♀️ <strong>Randonnée au phare de Mykines et observation des macareux</strong>: Marchez le long des sentiers balisés pour atteindre le phare, en passant par des colonies de macareux moines. C'est une occasion unique d'observer ces oiseaux de près dans leur habitat naturel.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pr-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour7.jpg" class="w-full h-64 object-cover" alt="Jour 7">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🗓️ Réservation essentielle</p>
+                                <p class="text-gray-700">Les places pour le ferry et les guides locaux sont limitées. Réservez bien à l'avance, surtout en haute saison. L'excursion est très dépendante de la météo.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">Respect Protection de la faune</p>
+                                <p class="text-gray-700">Gardez vos distances avec les oiseaux, ne les nourrissez pas et restez sur les sentiers balisés pour ne pas perturber leur habitat.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-8" class="section-etape relative z-10 mb-20 md:flex  md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ocre rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-right md:pr-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 8</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Falaises de Vestmanna et légendes marines</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Une journée dédiée à la découverte des majestueuses falaises de Vestmanna, un spectacle naturel impressionnant, suivi d'une exploration des paysages côtiers. Laissez-vous porter par les récits des marins et la beauté brute de l'océan.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🚢 <strong>Excursion en bateau aux falaises de Vestmanna</strong>: Naviguez entre d'immenses falaises, pénétrez dans des grottes marines et observez des milliers d'oiseaux marins nichant sur les parois rocheuses. Une expérience grandiose et inoubliable.</li><li>🚶‍♂️ <strong>Balade côtière près de Leynar</strong>: Profitez d'une promenade relaxante sur la plage de sable noir de Leynar ou explorez les environs pour des vues apaisantes sur l'océan. C'est un endroit idéal pour se ressourcer après l'excursion en bateau.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pl-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour8.jpg" class="w-full h-64 object-cover" alt="Jour 8">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🌬️ Vêtements chauds</p>
+                                <p class="text-gray-700">Même en été, il peut faire froid et venteux en mer. Prévoyez des vêtements chauds et coupe-vent pour l'excursion en bateau.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🌊 Mal de mer</p>
+                                <p class="text-gray-700">Si vous êtes sujet au mal de mer, prenez des précautions avant l'excursion. La mer peut être agitée.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-9" class="section-etape relative z-10 mb-20 md:flex md:flex-row-reverse md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ciel rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-left md:pl-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 9</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">L'île de James Bond : Kalsoy</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Embarquez pour une aventure vers Kalsoy, l'île en forme de flûte, célèbre pour ses paysages dramatiques et son phare emblématique, rendu célèbre par le cinéma. Une journée d'exploration entre légendes et panoramas grandioses.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>⛴️ <strong>Traversée en ferry vers Kalsoy (depuis Klaksvík)</strong>: Une courte traversée vous mènera à cette île étroite et montagneuse. La réservation du ferry est souvent nécessaire, surtout en haute saison, car les places sont limitées.</li><li>lighthouse <strong>Randonnée au phare de Kallur (Kalsoy)</strong>: Une randonnée modérée vous mènera à ce phare iconique, offrant des vues spectaculaires sur les falaises environnantes et l'océan. C'est un lieu de tournage célèbre et un point de vue incroyable.</li><li>🗿 <strong>Visite de la statue de la femme-phoque (Kópakonan) à Mikladalur</strong>: Découvrez la légende de la femme-phoque à travers cette magnifique statue située dans le village de Mikladalur. Une histoire fascinante de folklore féroïen.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pr-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour9.jpg" class="w-full h-64 object-cover" alt="Jour 9">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">⏰ Horaires des ferries</p>
+                                <p class="text-gray-700">Consultez les horaires des ferries à l'avance et arrivez tôt au port, surtout si vous voyagez en voiture. Les places sont limitées.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🎒 Préparation</p>
+                                <p class="text-gray-700">Prévoyez un pique-nique et des boissons, car les options de restauration sont limitées sur Kalsoy.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-10" class="section-etape relative z-10 mb-20 md:flex  md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-roche rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-right md:pr-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 10</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Klaksvík et les îles du Nord</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Explorez Klaksvík, la deuxième plus grande ville des Féroé, et aventurez-vous sur les îles voisines pour des panoramas encore plus reculés et authentiques. Une journée pour découvrir le cœur de la pêche féroïenne et des paysages moins fréquentés.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🏘️ <strong>Découverte de Klaksvík</strong>: Visitez l'église Christianskirkjan, admirez le port animé et imprégnez-vous de l'ambiance de cette ville portuaire importante. C'est un centre névralgique pour la pêche et la culture locale.</li><li>🏞️ <strong>Exploration de Kunoy</strong>: Conduisez le long de la route panoramique de Kunoy, offrant des vues magnifiques sur les falaises et les villages. Une petite forêt, rare aux Féroé, s'y trouve également, offrant une pause verdoyante.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pl-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour10.jpg" class="w-full h-64 object-cover" alt="Jour 10">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🎣 Industrie de la pêche</p>
+                                <p class="text-gray-700">Klaksvík est un centre majeur de l'industrie de la pêche féroïenne. Le port est toujours très actif et intéressant à observer.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🌲 Forêt de Kunoy</p>
+                                <p class="text-gray-700">Les Féroé sont naturellement dépourvues d'arbres. La forêt de Kunoy est l'une des rares plantations et offre un cadre unique pour une promenade.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-11" class="section-etape relative z-10 mb-20 md:flex md:flex-row-reverse md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ocre rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-left md:pl-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 11</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Détente et culture à Tórshavn</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Une journée plus tranquille pour revisiter Tórshavn, faire du shopping, visiter des musées ou simplement profiter de l'ambiance de la capitale avant le départ. L'occasion de ramener des souvenirs et de s'imprégner une dernière fois de la culture féroïenne.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🛍️ <strong>Shopping et souvenirs à Tórshavn</strong>: Explorez les petites boutiques de la capitale pour trouver des produits locaux, de la laine féroïenne aux œuvres d'art. C'est le moment idéal pour dénicher des cadeaux uniques.</li><li>🏛️ <strong>Visite du Musée National des Féroé ou du Musée d'Art</strong>: Plongez dans l'histoire, la culture et l'art féroïens pour mieux comprendre l'identité unique de l'archipel. Ces musées offrent un aperçu approfondi de la vie insulaire.</li><li>☕ <strong>Dégustation de spécialités locales</strong>: Profitez d'un café ou d'un repas dans l'un des restaurants de Tórshavn pour savourer la cuisine féroïenne. C'est une excellente façon de terminer votre séjour en beauté.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pr-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour11.jpg" class="w-full h-64 object-cover" alt="Jour 11">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🧶 Laine féroïenne</p>
+                                <p class="text-gray-700">Les pulls en laine féroïenne sont célèbres pour leur qualité et leur chaleur. C'est un excellent souvenir authentique à rapporter.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">🎨 Art féroïen</p>
+                                <p class="text-gray-700">Le Musée d'Art des Féroé présente des œuvres inspirées par les paysages et la culture locale, offrant une perspective unique sur l'archipel.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+                <div id="jour-12" class="section-etape relative z-10 mb-20 md:flex  md:justify-between items-start group scroll-mt-32">
+                    <div class="absolute left-6 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-template-ciel rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20"></div>
+                    
+                    <div class="md:w-[45%] pl-14 md:text-right md:pr-12">
+                        <span class="font-serif text-3xl block text-template-roche mb-2 font-bold">Jour 12</span>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Départ des Îles Féroé</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed italic mb-4">Derniers instants sur cette terre de légendes. Profitez une dernière fois des paysages spectaculaires avant de prendre votre vol retour, des souvenirs plein la tête et le cœur rempli d'images inoubliables de l'archipel sauvage.</p>
+                        <ul class="text-sm text-gray-700 space-y-2 inline-block text-left font-medium">
+                            <li>🚗 <strong>Route vers l'aéroport de Vágar</strong>: Profitez des derniers panoramas sur la route menant à l'aéroport. Chaque virage offre une nouvelle perspective sur la beauté des îles.</li><li>🛬 <strong>Vol retour depuis Vágar (FAE)</strong>: Restitution de la voiture de location et enregistrement pour votre vol. C'est le moment de dire au revoir à ce paradis nordique.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pl-14 md:w-[45%] mt-6 md:mt-0 md:pl-12">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-4">
+                            <img src="https://raw.githubusercontent.com/mytripplanner-dotfr/Faroe-islands-011638u0kn573cn/main/jour12.jpg" class="w-full h-64 object-cover" alt="Jour 12">
+                        </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">✈️ Formalités de départ</p>
+                                <p class="text-gray-700">Arrivez à l'aéroport avec suffisamment d'avance pour les formalités d'enregistrement et de sécurité, surtout si vous avez une voiture à restituer.</p>
+                            </div>
+                        
+                            <div class="tip-card p-4 rounded-r-lg text-sm mb-2">
+                                <p class="font-bold text-template-ocre mb-1">⛽ Plein d'essence</p>
+                                <p class="text-gray-700">Assurez-vous de faire le plein de votre voiture de location avant de la restituer, selon les termes de votre contrat.</p>
+                            </div>
+                        
+                    </div>
+                </div>
+                
+        </div>
+    </section>
+
+    <section id="pratique" class="bg-white border-t border-gray-200 pt-12 pb-12 scroll-mt-24">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10">
+            <div>
+                <h4 class="font-serif text-xl mb-4 text-template-roche flex items-center gap-2 font-bold">
+                    <span>💴</span> Budget
+                </h4>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2"><strong>Budget vol: </strong>2000€/pers (vol A/R Mena-FAE en classe économique avec escales)</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2"><strong>Budget transports: </strong>1220€/pers (location voiture 12j, essence, tunnels, ferries)</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2"><strong>Budget repas: </strong>840€/pers (repas variés, restaurants et pique-niques)</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2"><strong>Budget logement: </strong>1925€/pers (11 nuits en hôtel 3 étoiles)</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2"><strong>Budget activités: </strong>350€/pers (excursions bateau, musées, entrées)</p>
+                
+            </div>
+            <div>
+                <h4 class="font-serif text-xl mb-4 text-template-roche flex items-center gap-2 font-bold">
+                    <span>☀️</span> Périodes Idéales
+                </h4>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2">Les périodes idéales pour ce séjour sont les mois de juin à septembre.</p>
+                
+            </div>
+            <div>
+                <h4 class="font-serif text-xl mb-4 text-template-roche flex items-center gap-2 font-bold">
+                    <span>📃</span> Infos pratiques
+                </h4>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2">👥 Population : Environ 54 000 habitants. La culture féroïenne est forte, avec une langue unique (le féroïen) et des traditions maritimes ancrées. Les habitants sont accueillants et fiers de leur archipel.</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2">🇫🇴 Pays : Les Îles Féroé sont un territoire autonome du Royaume du Danemark. Elles bénéficient d'une large autonomie dans la plupart des domaines, à l'exception de la défense et des affaires étrangères.</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2">🐑 Insolite : Il y a plus de moutons que d'habitants aux Féroé ! L'archipel a même lancé un projet "Sheep View" pour cartographier ses routes avant l'arrivée de Google Street View. Il n'y a pas de prisons sur les îles, les peines de longue durée sont purgées au Danemark.</p>
+                
+                    <p class="text-sm text-gray-600 leading-relaxed mb-2">💰 Monnaie : La couronne féroïenne (FOK) est liée à la couronne danoise (DKK) à parité fixe. Les deux monnaies sont acceptées, mais la monnaie rendue sera généralement en FOK. Les cartes de crédit sont largement acceptées.</p>
+                
+            </div>            
+            <div>
+                <h4 class="font-serif text-xl mb-4 text-template-roche flex items-center gap-2 font-bold">
+                    <span>🔗</span> Liens Utiles
+                </h4>
+                <ul class="text-sm space-y-3">
+                  <li><a href="https://mytripplanner-dotfr.github.io/Faroe-islands-011638u0kn573cn/map.html" target="_blank" class="hover:text-template-ocre transition flex items-center gap-2"><strong>🗺️ Carte Interactive</strong></a></li>
+                    
+                        <li><a href="https://visitfaroeislands.com/" target="_blank" class="hover:text-template-ocre transition flex items-center gap-2"><strong>📘 Visit Faroe Islands</strong></a></li>
+                    
+                        <li><a href="https://www.yr.no/en/forecast/daily-table/2-2610761/Faroe%20Islands/V%C3%A1gar%20municipality/V%C3%A1gar" target="_blank" class="hover:text-template-ocre transition flex items-center gap-2"><strong>🌤️ Yr.no (Météo Norvégienne)</strong></a></li>
+                    
+                        <li><a href="https://mykines.fo/" target="_blank" class="hover:text-template-ocre transition flex items-center gap-2"><strong>⛴️ Mykines.fo</strong></a></li>
+                    
+                        <li><a href="https://www.ssl.fo/" target="_blank" class="hover:text-template-ocre transition flex items-center gap-2"><strong>🚢 SSL.fo (Strandfaraskip Landsins)</strong></a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-50 border-t border-slate-200 py-6">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <p class="font-serif text-lg text-template-roche mb-2 font-bold">
+                MyTrip<span class="text-template-ocre">Planner</span>
+            </p>
+
+                <div class="flex justify-center gap-4 text-[10px] md:text-xs text-slate-500 mb-4 font-semibold">
+                    <a href="#" class="hover:text-brand-primary transition hover:underline">Mentions Légales</a>
+                    <a href="#" class="hover:text-brand-primary transition hover:underline">CGU</a>
+                    <a href="#" class="hover:text-brand-primary transition hover:underline">Confidentialité</a>
+                </div>
+
+            <p class="text-[10px] text-gray-400 mb-2">
+                &copy; 2025 MyTripPlanner. Tous droits réservés.
+            </p>
+
+            <div class="flex justify-center">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest px-2 py-0.5 border border-gray-200 rounded-full inline-block">
+                    🤖 Contenu généré par IA
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion Scroll & Menu
+        const navDesktop = document.getElementById('nav-desktop');
+        const navMobile = document.getElementById('nav-mobile');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                navDesktop.classList.remove('-translate-y-full');
+                navMobile.classList.remove('-translate-y-full');
+            } else {
+                navDesktop.classList.add('-translate-y-full');
+                navMobile.classList.add('-translate-y-full');
+            }
+        });
+        
+        // Active Link Highlighter
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.id;
+                    document.querySelectorAll('.mobile-link').forEach(link => {
+                        const linkHref = link.getAttribute('href').substring(1);
+                        if (linkHref === activeId) {
+                            link.classList.remove('bg-gray-100', 'text-gray-700');
+                            link.classList.add('bg-template-ocre', 'text-white', 'shadow-md');
+                            link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                        } else {
+                            link.classList.add('bg-gray-100', 'text-gray-700');
+                            link.classList.remove('bg-template-ocre', 'text-white', 'shadow-md');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-40% 0px -60% 0px' });
+
+        document.querySelectorAll('div[id^="jour-"], section#pratique').forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
